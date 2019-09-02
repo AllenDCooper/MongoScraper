@@ -10,4 +10,14 @@ module.exports = function(app) {
            res.json(err)
        })
    })
+
+   app.put("/api/articles/:id", function(req, res) {
+       db.Article.findOneAndUpdate({ _id: req.params.id }, { saved: true })
+       .then(function(dbArticle) {
+           res.send("Article saved")
+       })
+       .catch(function(err){
+           res.send("Error")
+       })
+   })
 };
