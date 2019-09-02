@@ -45,7 +45,8 @@ $("#scrape-btn").on("click", function(event){
     event.preventDefault();
     // add code to hit api scrape route
     scrape().then(function(res) {
-        // alert("You have scraped " + res.numScrapes + " articles")
+        console.log(JSON.stringify(res.newScrapes));
+        alert("You have scraped " + res.numScrapes + " articles")
         getScrapedArticles().then(function(dbArticles) {
             renderArticles(dbArticles);
         })
