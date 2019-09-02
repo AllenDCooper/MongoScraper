@@ -25,11 +25,12 @@ module.exports = function(app) {
                 result.image = $(this)
                     .find("img.lazyload")
                     .attr("data-src");
-                result.author = [];
+                var authors = [];
                 $(this).find("li.byline").children().each(function(i, element) {
                     var scrapedAuthor = $(this).attr("title")
-                    result.author.push(scrapedAuthor);
+                    authors.push(scrapedAuthor);
                 });
+                result.author = authors.join(", ")
                 numScrapes++
                 // console.log(result);
                 db.Article.create(result)
