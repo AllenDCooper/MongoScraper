@@ -54,13 +54,13 @@ $("#scrape-btn").on("click", function(event){
     })
 })
 
-// getScrapedArticles().then(function(data) {
-//     renderArticles(data);
-// })
-
-$(document).on("click", ".btn-save", articleSave)
+getScrapedArticles().then(function(data) {
+    renderArticles(data);
+})
 
 // event handler for when user clicks on "save article" button
+$(document).on("click", ".btn-save", articleSave)
+
 // runs saveArticles function when clicked
 function articleSave() {
     var articleElement = $(this).parents(".card")
@@ -68,8 +68,6 @@ function articleSave() {
     articleElement.remove();
     saveArticles(articleToSave).then(function(response) {
         alert(response);
-        // getScrapedArticles().then(function(data) {
-        //     renderArticles(data);
-        // })
+    window.location.href = "/saved"
     })
 }

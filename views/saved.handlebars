@@ -1,0 +1,15 @@
+<div class="card-columns">
+    {{#each articles}}
+    <div class="card" data={{this}}>
+        <div class="card-body">
+            <h5 class="card-title">{{this.headline}}</h5>
+            <img src={{this.image}} class="card-img-top">
+            <p>Author(s): {{this.author}}</p>
+            <p class="card-text">{{this.summary}}</p>
+            <a href={{this.url}}>{{this.url}}</a>
+            <a class="btn btn-primary btn-notes">Article Notes</a>
+            <a class="btn btn-primary btn-unsave">Delete from Saved</a>
+        </div>
+    </div>
+    {{/each}}
+</div>
