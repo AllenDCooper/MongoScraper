@@ -1,6 +1,7 @@
 function scrape() {
     return $.ajax({
-        url: "/scrape",
+        url: "api/scrape",
+        type: "GET"
     })
 }
 
@@ -20,7 +21,7 @@ function saveArticles(article) {
 }
 
 function renderArticles(data) {
-    console.log(data);
+    // console.log(data);
     $("#articles-div").empty();
     data.forEach(function(element, i) {
         var divCard = $("<div>").addClass("card").data(element);
@@ -42,29 +43,32 @@ function renderArticles(data) {
 // runs scrape function when clicked
 $("#scrape-btn").on("click", function(event){
     event.preventDefault();
-    // add code to hit scrape route
+    // add code to hit api scrape route
     scrape().then(function(res) {
-        getScrapedArticles().then(function(data) {
-            renderArticles(data);
+        // alert("You have scraped " + res.numScrapes + " articles")
+        getScrapedArticles().then(function(dbArticles) {
+            renderArticles(dbArticles);
         })
-        alert("You have scraped " + res.data + " articles")
+
     })
 })
 
-getScrapedArticles().then(function(data) {
-    renderArticles(data);
-})
+// getScrapedArticles().then(function(data) {
+//     renderArticles(data);
+// })
 
 $(document).on("click", ".btn-save", articleSave)
 
 // event handler for when user clicks on "save article" button
 // runs saveArticles function when clicked
 function articleSave() {
-    var articleToSave = $(this).parents(".card").data();
+    var articleElement = $(this).parents(".card")
+    var articleToSave = articleElement.data();
+    articleElement.remove();
     saveArticles(articleToSave).then(function(response) {
         alert(response);
-        getScrapedArticles().then(function(data) {
-            renderArticles(data);
-        })
+        // getScrapedArticles().then(function(data) {
+        //     renderArticles(data);
+        // })
     })
 }
