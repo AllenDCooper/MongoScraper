@@ -19,11 +19,11 @@ function renderArticles(data) {
         var divCardTitle= $("<h5>").addClass("card-title").text(element.headline);
         var divCardText = $("<p>").addClass("card-text").text(element.summary);
         var divCardLink = $("<a>").attr("href", element.url).text(element.url);
-        var divCardImg = $("<img>").attr("src", element.image).addClass("rounded float-left");
+        var divCardImg = $("<img>").attr("src", element.image).addClass("card-img-top");
         var divCardAuthors = $("<p>").text("Author(s): " + element.author)
         var saveBtn = $("<a>").addClass("btn btn-primary btn-save").text("Save Article")
-        divCardBody.append(divCardTitle, divCardAuthors, divCardText, divCardLink, divCardImg, saveBtn);
-        divCard.append(divCardBody);
+        divCardBody.append(divCardTitle, divCardAuthors, divCardText, divCardLink, saveBtn);
+        divCard.append(divCardImg, divCardBody);
         $("#articles-div").append(divCard);
     })
 }
