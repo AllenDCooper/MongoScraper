@@ -1,6 +1,12 @@
 var express = require('express');
 var exphbs  = require('express-handlebars');
+var mongoose = require('mongoose');
 
+// require scraping tools
+var axios = require("axios");
+var cheerio = require("cheerio");
+
+// require models
 var db = require("./models");
 
 var app = express();
@@ -11,7 +17,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(express.static("public"));
 
-
 // Handlebars
 app.engine(
     "handlebars",
@@ -19,13 +24,10 @@ app.engine(
       defaultLayout: "main"
     })
   );
-
 app.set("view engine", "handlebars");
  
 // Routes
-app.get('/', function (req, res) {
-    res.render('home');
-});
+require("./routes/htmlRoutes.js")(app);
 
 // Start server
 app.listen(PORT, function() {
@@ -35,3 +37,7 @@ app.listen(PORT, function() {
         PORT
     );
 });
+
+// Connect to Mongo DB
+mongoose.connect("mongodb://localhost/mongoScraperDB", { useNewURLParser: true});
+
