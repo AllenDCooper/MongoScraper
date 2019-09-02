@@ -9,6 +9,7 @@ module.exports = function(app) {
 
     app.get("/scrape", function(req, res) {
         axios.get("https://www.theatlantic.com/latest/").then(function(response){
+            var numScrapes = 0;
             var $ = cheerio.load(response.data);
             $("li.blog-article").each(function(i, element) {
                 var result = {};
@@ -29,6 +30,7 @@ module.exports = function(app) {
                     var scrapedAuthor = $(this).attr("title")
                     result.author.push(scrapedAuthor);
                 });
+                numScrapes++
                 // console.log(result);
                 db.Article.create(result)
                 .then(function(dbArticle) {
@@ -38,8 +40,12 @@ module.exports = function(app) {
                     console.log(err)
                 });
             });
-            res.send("Scrape Complete")
+            console.log(numScrapes);
+            res.send({data: numScrapes})
         });
     });
+
+    // Route for getting all articles from the db
+    app.get("/articles", )
 };
 

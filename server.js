@@ -28,6 +28,7 @@ app.set("view engine", "handlebars");
  
 // Routes
 require("./routes/htmlRoutes.js")(app);
+require("./routes/apiRoutes.js")(app);
 
 // Start server
 app.listen(PORT, function() {
