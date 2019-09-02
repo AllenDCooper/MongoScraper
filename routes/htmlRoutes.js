@@ -28,10 +28,18 @@ module.exports = function(app) {
                 $(this).find("li.byline").children().each(function(i, element) {
                     var scrapedAuthor = $(this).attr("title")
                     result.author.push(scrapedAuthor);
-                })    
-                console.log(result);
-            })
-        })
-    })
-}
+                });
+                // console.log(result);
+                db.Article.create(result)
+                .then(function(dbArticle) {
+                    console.log(dbArticle);
+                })
+                .catch(function(err) {
+                    console.log(err)
+                });
+            });
+            res.send("Scrape Complete")
+        });
+    });
+};
 
