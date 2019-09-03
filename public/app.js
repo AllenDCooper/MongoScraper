@@ -32,8 +32,8 @@ function renderArticles(data) {
         var divCardImg = $("<img>").attr("src", element.image).addClass("card-img-top");
         var divCardAuthors = $("<p>").text("Author(s): " + element.author)
         var saveBtn = $("<a>").addClass("btn btn-primary btn-save").text("Save Article")
-        var notesBtn = $("<a>").addClass("btn btn-primary btn-notes").text("Add Notes")
-        divCardBody.append(divCardTitle, divCardAuthors, divCardText, divCardLink, "<br>", notesBtn, saveBtn);
+        // var notesBtn = $("<a>").addClass("btn btn-primary btn-notes").text("Add Notes")
+        divCardBody.append(divCardTitle, divCardAuthors, divCardText, divCardLink, "<br>", saveBtn);
         divCard.append(divCardImg, divCardBody);
         $("#articles-div").append(divCard);
     })

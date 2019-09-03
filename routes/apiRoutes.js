@@ -109,6 +109,17 @@ module.exports = function(app) {
         })
         .catch(function(err){
             res.send("Error")
+        });
+    });
+
+    app.get("/api/notes/:id", function(req, res) {
+        db.Article.findOne({ _id: req.params.id })
+        .then(function(dbArticle) {
+            res.send(dbArticle)
         })
-    })
+        .catch(function(err) {
+            res.send("Error")
+        });
+    });
+
 };

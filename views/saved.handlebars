@@ -8,8 +8,25 @@
             <p class="card-text">{{this.summary}}</p>
             <a href={{this.url}}>{{this.url}}</a>
             <a class="btn btn-primary btn-notes">Article Notes</a>
-            <a class="btn btn-primary btn-unsave">Delete from Saved</a>
+            <a class="btn btn-primary btn-unsave" data-toggle="modal" data-target="#notes-modal">Delete from Saved</a>
         </div>
     </div>
     {{/each}}
+    <!-- Modal -->
+    <div class="modal fade" id="notes-modal" tabindex="-1">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title"></h5>
+            <button type="button" class="close" data-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary save-note">Save Note</button>
+        </div>
+        </div>
+    </div>
+    </div>
 </div>
