@@ -114,6 +114,7 @@ module.exports = function(app) {
 
     app.get("/api/notes/:id", function(req, res) {
         db.Article.findOne({ _id: req.params.id })
+        .populate("notes")
         .then(function(dbArticle) {
             res.send(dbArticle)
         })
@@ -122,4 +123,17 @@ module.exports = function(app) {
         });
     });
 
+    app.post("/api/notes/:id", function(req, res) {
+        console.log(req.body);
+        db.Note.create({ text: req.body.text })
+        .then(function(dbNote) {
+            return db.Article.findOneAndUpdate({ _id: req.params.id }, { $push: { notes: dbNote._id } }, { new: true })
+        })
+        .then(function(dbArticle) {
+            res.json(dbArticle);
+        })
+        .catch(function(err) {
+            res.json(err);
+        })
+    })
 };
