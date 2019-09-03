@@ -101,4 +101,14 @@ module.exports = function(app) {
            res.send("Error")
        })
    })
+
+   app.put("/api/unsaved/articles/:id", function(req, res) {
+        db.Article.findOneAndUpdate({ _id: req.params.id }, { saved: false })
+        .then(function(dbArticle) {
+            res.send("Article unsaved")
+        })
+        .catch(function(err){
+            res.send("Error")
+        })
+    })
 };
