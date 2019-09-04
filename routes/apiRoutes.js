@@ -112,6 +112,16 @@ module.exports = function(app) {
         });
     });
 
+    app.delete("/api/articles", function(req, res) {
+        db.Article.deleteMany({})
+        .then(function(response) {
+            res.send("all articles deleted")
+        })
+        .catch(function(err) {
+            res.send("Error")
+        });
+    });
+
     app.get("/api/notes/:id", function(req, res) {
         db.Article.findOne({ _id: req.params.id })
         .populate("notes")
@@ -134,13 +144,16 @@ module.exports = function(app) {
         })
         .catch(function(err) {
             res.json(err);
-        })
-    })
+        });
+    });
 
     app.delete("/api/notes/:id", function(req, res) {
         db.Note.deleteOne({ _id: req.params.id })
-        .then(function(err) {
-            res.send(err);
+        .then(function(response) {
+            res.send(response);
         })
-    })
+        .catch(function(err) {
+            res.send(err)
+        });
+    });
 };

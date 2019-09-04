@@ -20,6 +20,13 @@ function saveArticles(article) {
     })
 }
 
+function deleteAllArticles() {
+    return $.ajax({
+        url: "/api/articles",
+        type: "DELETE"
+    })
+}
+
 function renderArticles(data) {
     // console.log(data);
     $("#articles-div").empty();
@@ -46,16 +53,12 @@ $("#scrape-btn").on("click", function(event){
     // add code to hit api scrape route
     scrape().then(function(res) {
         console.log(JSON.stringify(res.newScrapes));
-        alert("You have scraped " + res.numScrapes + " articles")
+        $("#modal-text").text("You have scraped " + res.numScrapes + " articles")
+        $("#article-scrape-modal").modal("show");
         getScrapedArticles().then(function(dbArticles) {
             renderArticles(dbArticles);
         })
-
     })
-})
-
-getScrapedArticles().then(function(data) {
-    renderArticles(data);
 })
 
 // event handler for when user clicks on "save article" button
@@ -67,7 +70,20 @@ function articleSave() {
     var articleToSave = articleElement.data();
     articleElement.remove();
     saveArticles(articleToSave).then(function(response) {
-        alert(response);
     window.location.href = "/saved"
     })
 }
+
+// deletes scraped articles
+$("#delete-articles-btn").on("click", function(event) {
+    event.preventDefault();
+    deleteAllArticles().then(function() {
+        getScrapedArticles().then(function(data) {
+            renderArticles(data);
+        })
+    })
+});
+
+getScrapedArticles().then(function(data) {
+    renderArticles(data);
+})
