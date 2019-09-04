@@ -40,7 +40,6 @@ function articleUnsave() {
     var articleToUnsave = articleElement.attr("data");
     articleElement.remove();
     unsaveArticles(articleToUnsave).then(function(response) {
-        alert(response);
     window.location.href = "/saved"
     })
 }

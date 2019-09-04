@@ -40,5 +40,6 @@ app.listen(PORT, function() {
 });
 
 // Connect to Mongo DB
-mongoose.connect("mongodb://localhost/mongoScraperDB", { useNewURLParser: true});
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoScraperDB"
+mongoose.connect(MONGODB_URI, { useNewURLParser: true});
 
