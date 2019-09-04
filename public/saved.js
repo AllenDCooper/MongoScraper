@@ -21,9 +21,18 @@ function postNotes(note) {
     })
 }
 
+function noteDelete(noteID) {
+    return $.ajax({
+        url: "/api/notes/" + noteID,
+        type: "DELETE",
+        data: noteID
+    })
+}
+
 $(document).on("click", ".btn-unsave", articleUnsave);
 $(document).on("click", ".btn-notes", openNotes);
 $(document).on("click", ".save-note", saveNotes);
+$(document).on("click", ".delete-note", deleteNote);
 
 // runs unsaveArticles function when clicked
 function articleUnsave() {
@@ -52,48 +61,40 @@ function openNotes() {
                 console.log(element);
                 var noteListItem = $("<li>").addClass("list-group-item");
                 noteListItem.text(element.text)
-                var deleteBtn = $("<button>").addClass("btn btn-danger delete-note").text("x");
+                var deleteBtn = $("<button>").addClass("btn btn-danger delete-note").text("x").attr("data", element._id);
                 noteListItem.append(deleteBtn);
                 noteList.append(noteListItem)
             })
         } else {
             var noteListItem = $("<li>").addClass("list-group-item");
             noteListItem.text("No existing notes")
-            // var deleteBtn = $("<button>").addClass("btn btn-danger delete-note").text("x");
-            // noteListItem.append(deleteBtn);
             noteList.append(noteListItem)
         }
         // build modal
         var modalDiv = $("#notes-modal")
         // var modalDiv = $("<div>").addClass("modal fade").attr("id", "notes-modal").attr("tabindex", "-1");
-
         var modalDialog = $("<div>").addClass("modal-dialog").attr("role", "documents");
-
         var modalContent = $("<div>").addClass("modal-content");
-        
         // modal header
         var modalHeader = $("<div>").addClass("modal-header");
             var modalTitle =  $(".modal-title").attr("data", articleToAddNotes).text("Notes for: " + articleToAddNotes);
             var headerButton = $("<button>").addClass("close").attr("data-dismiss", "modal");
         modalHeader.append(modalTitle, headerButton);
-
         // modal body
         var modalBody =  $("<div>").addClass(".modal-body");
             var textarea = $("<textarea>").attr("placeholder", "Add a Note").addClass("form-control rounded-0 note-field");
         modalBody.append(noteList, textarea);
-
         // modal footer
         var modalFooter = $("<div>").addClass("modal-footer")
             var footerButtonClose = $("<button>").addClass("btn btn-secondary").attr("data-dismiss", "modal").text("Close")
             var footerButtonSave = $("<button>").addClass("btn btn-primary save-note").attr("data", articleToAddNotes).text("Save Note")
         modalFooter.append(footerButtonClose, footerButtonSave);
-
         // compose modal
         modalContent.append(modalHeader, modalBody, modalFooter);
         modalDialog.append(modalContent);
         modalDiv.append(modalDialog);
         // $(".empty-modal").append(modalDiv);
-        $('#notes-modal').modal('show')
+        $("#notes-modal").modal("show")
     })
 }
 
@@ -105,6 +106,15 @@ function saveNotes() {
     note._id = articleID
     console.log(note);
     postNotes(note).then(function(response) {
-        $('#notes-modal').modal('hide');
+        $("#notes-modal").modal("hide");
     })
+}
+
+function deleteNote() {
+    var noteID = $(this).attr("data");
+    console.log(noteID)
+    noteDelete(noteID).then(function(response) {
+        $("#notes-modal").modal("hide");
+    })
+
 }

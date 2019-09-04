@@ -136,4 +136,11 @@ module.exports = function(app) {
             res.json(err);
         })
     })
+
+    app.delete("/api/notes/:id", function(req, res) {
+        db.Note.deleteOne({ _id: req.params.id })
+        .then(function(err) {
+            res.send(err);
+        })
+    })
 };
