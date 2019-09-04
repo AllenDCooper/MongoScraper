@@ -55,38 +55,6 @@ function openNotes() {
                 var deleteBtn = $("<button>").addClass("btn btn-danger delete-note").text("x");
                 noteListItem.append(deleteBtn);
                 noteList.append(noteListItem)
-
-                // build modal
-                var modalDiv = $("#notes-modal")
-                // var modalDiv = $("<div>").addClass("modal fade").attr("id", "notes-modal").attr("tabindex", "-1");
-
-                var modalDialog = $("<div>").addClass("modal-dialog").attr("role", "documents");
-
-                var modalContent = $("<div>").addClass("modal-content");
-                
-                // modal header
-                var modalHeader = $("<div>").addClass("modal-header");
-                    var modalTitle =  $(".modal-title").attr("data", articleToAddNotes).text("Notes for: " + articleToAddNotes);
-                    var headerButton = $("<button>").addClass("close").attr("data-dismiss", "modal");
-                modalHeader.append(modalTitle, headerButton);
-
-                // modal body
-                var modalBody =  $("<div>").addClass(".modal-body");
-                    var textarea = $("<textarea>").attr("placeholder", "Add a Note").addClass("form-control rounded-0 note-field");
-                modalBody.append(noteList, textarea);
-
-                // modal footer
-                var modalFooter = $("<div>").addClass("modal-footer")
-                    var footerButtonClose = $("<button>").addClass("btn btn-secondary").attr("data-dismiss", "modal").text("Close")
-                    var footerButtonSave = $("<button>").addClass("btn btn-primary save-note").attr("data", articleToAddNotes).text("Save Note")
-                modalFooter.append(footerButtonClose, footerButtonSave);
-
-                // compose modal
-                modalContent.append(modalHeader, modalBody, modalFooter);
-                modalDialog.append(modalContent);
-                modalDiv.append(modalDialog);
-                // $(".empty-modal").append(modalDiv);
-                $('#notes-modal').modal('show')
             })
         } else {
             var noteListItem = $("<li>").addClass("list-group-item");
@@ -94,39 +62,38 @@ function openNotes() {
             // var deleteBtn = $("<button>").addClass("btn btn-danger delete-note").text("x");
             // noteListItem.append(deleteBtn);
             noteList.append(noteListItem)
-
-            // build modal
-            var modalDiv = $("#notes-modal")
-            // var modalDiv = $("<div>").addClass("modal fade").attr("id", "notes-modal").attr("tabindex", "-1");
-
-            var modalDialog = $("<div>").addClass("modal-dialog").attr("role", "documents");
-
-            var modalContent = $("<div>").addClass("modal-content");
-            
-            // modal header
-            var modalHeader = $("<div>").addClass("modal-header");
-                var modalTitle =  $(".modal-title").attr("data", articleToAddNotes).text("Notes for: " + articleToAddNotes);
-                var headerButton = $("<button>").addClass("close").attr("data-dismiss", "modal");
-            modalHeader.append(modalTitle, headerButton);
-
-            // modal body
-            var modalBody =  $("<div>").addClass(".modal-body");
-                var textarea = $("<textarea>").attr("placeholder", "Add a Note").addClass("form-control rounded-0 note-field");
-            modalBody.append(noteList, textarea);
-
-            // modal footer
-            var modalFooter = $("<div>").addClass("modal-footer")
-                var footerButtonClose = $("<button>").addClass("btn btn-secondary").attr("data-dismiss", "modal").text("Close")
-                var footerButtonSave = $("<button>").addClass("btn btn-primary save-note").attr("data", articleToAddNotes).text("Save Note")
-            modalFooter.append(footerButtonClose, footerButtonSave);
-
-            // compose modal
-            modalContent.append(modalHeader, modalBody, modalFooter);
-            modalDialog.append(modalContent);
-            modalDiv.append(modalDialog);
-            // $(".empty-modal").append(modalDiv);
-            $('#notes-modal').modal('show')
         }
+        // build modal
+        var modalDiv = $("#notes-modal")
+        // var modalDiv = $("<div>").addClass("modal fade").attr("id", "notes-modal").attr("tabindex", "-1");
+
+        var modalDialog = $("<div>").addClass("modal-dialog").attr("role", "documents");
+
+        var modalContent = $("<div>").addClass("modal-content");
+        
+        // modal header
+        var modalHeader = $("<div>").addClass("modal-header");
+            var modalTitle =  $(".modal-title").attr("data", articleToAddNotes).text("Notes for: " + articleToAddNotes);
+            var headerButton = $("<button>").addClass("close").attr("data-dismiss", "modal");
+        modalHeader.append(modalTitle, headerButton);
+
+        // modal body
+        var modalBody =  $("<div>").addClass(".modal-body");
+            var textarea = $("<textarea>").attr("placeholder", "Add a Note").addClass("form-control rounded-0 note-field");
+        modalBody.append(noteList, textarea);
+
+        // modal footer
+        var modalFooter = $("<div>").addClass("modal-footer")
+            var footerButtonClose = $("<button>").addClass("btn btn-secondary").attr("data-dismiss", "modal").text("Close")
+            var footerButtonSave = $("<button>").addClass("btn btn-primary save-note").attr("data", articleToAddNotes).text("Save Note")
+        modalFooter.append(footerButtonClose, footerButtonSave);
+
+        // compose modal
+        modalContent.append(modalHeader, modalBody, modalFooter);
+        modalDialog.append(modalContent);
+        modalDiv.append(modalDialog);
+        // $(".empty-modal").append(modalDiv);
+        $('#notes-modal').modal('show')
     })
 }
 
